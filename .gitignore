@@ -1,0 +1,10 @@
+*
+!*.*
+!*/
+*.txt
+*.out
+.vscode
+.DS_Store
+*.h
+*.in
+*.gch

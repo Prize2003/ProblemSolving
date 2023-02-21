@@ -3,7 +3,7 @@
 using namespace std;
 
 int speed[200000];
-set<pair<int,pair<int,int>>> edge;
+set<pair<double,pair<int,int>>> edge;
 
 int parent[100000];
 
@@ -29,20 +29,21 @@ void union_set(int a, int b)
 }
 
 
-int mst(int n,int m){
-    int ans=0;
+void mst(int n,int m){
+    double ans=0;
     for (auto a:edge)
     {
-        int time=ceil(a.first/(speed[a.second.first]+speed[a.second.second]));
         if (find_parent(a.second.first) != find_parent(a.second.second))
         {
             union_set(a.second.first, a.second.second);
             if(a.first>ans){
+                // cout<<a.first<<"\n";
                 ans=a.first;
             }
         }
     }
-    return ans;
+    cout<<ans<<"\n";
+    // return ans;
 }
 
 
@@ -57,20 +58,34 @@ int main(){
         int a,b;
         double w;
         cin>>a>>b>>w;
-        edge.insert({w,{a,b}});
+        // cout<<ceil(w/(speed[a-1]+speed[b-1]))<<"\n";
+        edge.insert({ceil(w/(speed[a-1]+speed[b-1])),{a-1,b-1}});
     }
-    int ans=mst(n,m);
-    if(ans%2==0){
-        cout<<ans/2<<"\n";
-    }
-    else{
-       cout<<ans/2+1<<"\n"; 
-    }
+    mst(n,m);
+    // cout<<ans/2<<"\n";
+    // if(ans%2==0){
+    //     cout<<ans/2<<"\n";
+    // }
+    // else{
+    //    cout<<ans/2+1<<"\n"; 
+    // }
 }
 
 /*
 5 7
 1 1 1 1 1
+1 2 2
+1 4 6
+1 5 5
+2 3 8
+2 4 4
+2 5 7
+3 4 2
+*/
+
+/*
+5 7
+1 1 1 1 2
 1 2 2
 1 4 6
 1 5 5
